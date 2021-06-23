@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="jwadusinghearachchi" id="1">
+        <createTable tableName="cartons">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="cartons"/>
+        </rollback>
+    </changeSet>
+    <changeSet  author="jwadusinghearachchi"  id="2">
+        <addForeignKeyConstraint  baseColumnNames="product_id"
+                                  baseTableName="cartons"
+                                  constraintName="fk_product_carton"
+                                  referencedColumnNames="id"
+                                  referencedTableName="products"/>
+    </changeSet>
+</databaseChangeLog>

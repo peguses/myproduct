@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="jwadusinghearachchi" id="1">
+        <createTable tableName="discounts">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="NUMERIC(5,3)" defaultValue="0.0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount_condition" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="BOOLEAN" defaultValue="true"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="discounts"/>
+        </rollback>
+    </changeSet>
+    <changeSet  author="jwadusinghearachchi"  id="2">
+        <addForeignKeyConstraint  baseColumnNames="product_id"
+                                  baseTableName="discounts"
+                                  constraintName="fk_product_discounts"
+                                  referencedColumnNames="id"
+                                  referencedTableName="products"/>
+    </changeSet>
+</databaseChangeLog>
